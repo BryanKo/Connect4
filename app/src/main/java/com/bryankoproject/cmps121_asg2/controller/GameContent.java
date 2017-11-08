@@ -27,7 +27,6 @@ public class GameContent extends AppCompatActivity {
     int p1Counter = 0;
     int p2Counter = 0;
 
-
     int positionList[] = {
             0, 1, 2, 3, 4, 5, 6,
             7, 8, 9, 10, 11, 12, 13,
@@ -100,7 +99,6 @@ public class GameContent extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int newPosition;
                 GridFragment fragment = new GridFragment(GameContent.this, gameBoard);
                 GameLogic gameLogic = new GameLogic();
                 counter = counter%2;
@@ -108,7 +106,7 @@ public class GameContent extends AppCompatActivity {
 
                     if(counter == 0) {
                         counter++;
-                        //newPosition = col1Check(takenList, positionList, position);
+                        position = gameLogic.colCheck(takenList, position);
                         takenList[position+35] = 1;
                         gameBoard[position] = R.drawable.board_sq_p1;
                         if (gameLogic.horCheck(takenList, counter, position) == true ||
@@ -121,7 +119,7 @@ public class GameContent extends AppCompatActivity {
                         }
                     } else {
                         counter++;
-                        //newPosition = col1Check(takenList, positionList, position);
+                        position = gameLogic.colCheck(takenList, position);
                         takenList[position+35] = 2;
                         gameBoard[position] = R.drawable.board_sq_p2;
                         if (gameLogic.horCheck(takenList, counter, position) == true ||
@@ -135,6 +133,8 @@ public class GameContent extends AppCompatActivity {
                     }
 
                     //Toast.makeText(GameContent.this, "Clicked cell " + positionList[position] + " by Player " + (counter), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(GameContent.this, "Cell taken by Player " + takenList[position+35], Toast.LENGTH_SHORT).show();
                 }
 
                 gridView.setAdapter(fragment);
@@ -153,15 +153,4 @@ public class GameContent extends AppCompatActivity {
         gameBoard = savedInstanceState.getIntArray("boardgame");
         takenList = savedInstanceState.getIntArray("takenlist");
     }
-
-    private int col1Check(int taken[], int gridPos[], int pos) {
-        int newPos = pos;
-        while (newPos != gridPos[35] )
-            if (taken[newPos] != 1)
-            newPos += 7;
-        return newPos;
-    }
-
-
-
 }

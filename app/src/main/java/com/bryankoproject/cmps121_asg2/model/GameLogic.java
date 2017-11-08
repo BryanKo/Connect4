@@ -40,5 +40,16 @@ public class GameLogic {
         else return false;
     }
 
+    public int colCheck(int taken[], int pos) {
+        while (pos < 35){
+            if (/*pos < 35 && */taken[pos + 7 + 35] == 0) {
+                pos = pos + 7;
+            } else {
+                return pos;
+            }
+        }
+        return pos;
+    }
+
 
 }
