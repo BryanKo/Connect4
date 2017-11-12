@@ -8,6 +8,6 @@ Connect 4 game using MVC format.
 
 Bugs:
 
--Game will not save previous data
--MVC format may not be MVC format
--Fragments does not work
+	-Game will not save previous data
+	-MVC format may not be MVC format
+	-Fragments does not work
